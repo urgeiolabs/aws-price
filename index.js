@@ -41,7 +41,7 @@ Price.prototype.associate = function (associateId) {
 };
 
 Price.prototype.country = function (country) {
-  if (!country) return;
+  if (!country) return this;
 
   // Find matching endpoints
   var match = endpointMap.filter(function (e) {
