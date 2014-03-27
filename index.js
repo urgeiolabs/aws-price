@@ -68,7 +68,7 @@ Price.prototype.done = function (cb) {
     awsId: this.opts.amazonId,
     awsSecret: this.opts.amazonSecret,
     assocId: this.opts.associateId,
-    endpoint: this.opts.endpoint
+    endPoint: this.opts.endpoint
   });
 
   cb = _.once(cb);
