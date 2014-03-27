@@ -41,7 +41,13 @@ Price.prototype.associate = function (associateId) {
 };
 
 Price.prototype.country = function (country) {
-  if (endpointMap[country]) this.opts.endpoint = country;
+  // Find matching endpoints
+  var match = endpointMap.filter(function (e) {
+    return e.code === country.toUpperCase() || e.name === country;
+  });
+
+  // Set the first matching endpoint
+  if (match.length > 0) this.opts.endpoint = match[0].endpoint;
   return this;
 };
 
@@ -138,17 +144,17 @@ var extractError = function (obj) {
   return firstMatch(obj, '$..Error.Message');
 };
 
-var endpointMap = {
-  'canada': 'webservices.amazon.ca',
-  'china': 'webservices.amazon.cn',
-  'germany': 'webservices.amazon.de',
-  'spain': 'webservices.amazon.es',
-  'france': 'webservices.amazon.fr',
-  'italy': 'webservices.amazon.it',
-  'japan': 'webservices.amazon.jp',
-  'uk': 'webservices.amazon.uk',
-  'us': 'webservices.amazon.us',
-};
+var endpointMap = [
+  { name: 'canada', code: 'CA', endpoint: 'webservices.amazon.ca' },
+  { name: 'china', code: 'CN', endpoint: 'webservices.amazon.cn' },
+  { name: 'germany', code: 'DE', endpoint: 'webservices.amazon.de' },
+  { name: 'spain', code: 'ES', endpoint: 'webservices.amazon.es' },
+  { name: 'france', code: 'FR', endpoint: 'webservices.amazon.fr' },
+  { name: 'italy', code: 'IT', endpoint: 'webservices.amazon.it' },
+  { name: 'japan', code: 'JP', endpoint: 'webservices.amazon.jp' },
+  { name: 'uk', code: 'GB', endpoint: 'webservices.amazon.uk' },
+  { name: 'us', code: 'US', endpoint: 'webservices.amazon.us' }
+];
 
 var defaultExtractions = {
   'asin': '$..ASIN',
