@@ -1,6 +1,6 @@
 {
   "name": "aws-price",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Amazon product API price lookup simplified",
   "main": "index.js",
   "scripts": {
