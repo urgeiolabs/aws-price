@@ -10,7 +10,15 @@ var price = module.exports = function (itemId, opts) {
 };
 
 var Price = function Price (itemId, opts) {
-  this.itemId = itemId;
+  this.mode = 'lookup';
+
+  if ('object' === typeof itemId) {
+    if (itemId.id) this.itemId = itemId.id;
+    if (itemId.keywords) this.keywords = itemId.keywords, this.mode = 'search';
+  } else {
+    this.itemId = itemId;
+  }
+
   this.opts = opts || {};
   this.extractions = defaultExtractions;
 };
@@ -73,12 +81,28 @@ Price.prototype.done = function (cb) {
     endPoint: this.opts.endpoint
   });
 
+  // Make sure we only execute the callback once
   cb = _.once(cb);
 
-  helper.execute('ItemLookup', {
-    'ResponseGroup': 'Offers,ItemAttributes',
-    'ItemId': this.itemId
-  }, success(cb), error(cb));
+
+  // Convert op name
+  var op = this.mode === 'search' ? 'ItemSearch' : 'ItemLookup';
+
+  // Populate request object
+  var req = {
+    'ResponseGroup': 'Offers,ItemAttributes'
+  };
+
+  if (this.mode === 'search') {
+    _.extend(req, { 'SearchIndex': 'All', 'Keywords': this.keywords });
+  } else if (this.mode === 'lookup') {
+    _.extend(req, { 'ItemId': this.itemId });
+  }
+
+
+
+  // Run the request
+  helper.execute(op, req, success(cb), error(cb));
 
   function success (cb) {
     return function (res) {
