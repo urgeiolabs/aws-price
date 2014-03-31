@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "https://github.com/adamvr/aws-price",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/adamvr/aws-price.git"
+  },
   "author": "Adam Rudd",
   "license": "MIT",
   "dependencies": {
