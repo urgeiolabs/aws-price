@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "apac": "0.0.13",
-    "JSONPath": "^0.9.1",
-    "underscore": "^1.6.0"
+    "JSONPath": ">=0.9.1",
+    "underscore": ">=1.6.0"
   }
 }
