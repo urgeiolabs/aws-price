@@ -2,7 +2,7 @@
  * Module dependencies
  */
 var apac = require('apac')
-  , path = require('jsonpath').eval
+  , path = require('JSONPath').eval
   , _ = require('underscore');
 
 var price = module.exports = function (itemId, opts) {
