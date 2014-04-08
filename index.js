@@ -179,7 +179,8 @@ var endpointMap = [
   { name: 'italy', code: 'IT', endpoint: 'webservices.amazon.it' },
   { name: 'japan', code: 'JP', endpoint: 'webservices.amazon.jp' },
   { name: 'uk', code: 'GB', endpoint: 'webservices.amazon.uk' },
-  { name: 'us', code: 'US', endpoint: 'webservices.amazon.com' }
+  { name: 'us', code: 'US', endpoint: 'webservices.amazon.com' },
+  { name: 'india', code: 'IN', endpoint: 'webservices.amazon.in' }
 ];
 
 var defaultExtractions = {
