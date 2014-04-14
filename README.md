@@ -1,4 +1,4 @@
-# amz-price
+# aws-price
 
 ## Introduction
 
@@ -12,7 +12,7 @@ This module is a simple chainable wrapper around [node-apac](http://github.com/d
 
 ## Example
 
-    var price = require('amz-price');
+    var price = require('aws-price');
 
     price('<asin>')
       .id('<aws id>')
