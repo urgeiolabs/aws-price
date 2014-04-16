@@ -3,6 +3,7 @@
  */
 var apac = require('apac')
   , path = require('JSONPath').eval
+  , transforms = require('./transforms')
   , _ = require('underscore');
 
 var price = module.exports = function (itemId, opts) {
