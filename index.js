@@ -90,21 +90,18 @@ Price.prototype.done = function (cb) {
     _.extend(req, { 'ItemId': this.itemId });
   }
 
-
-
   // Run the request
   helper.execute(op, req, success(cb), error(cb));
 
   function success (cb) {
     return function (res) {
-      var flat = flattenArrays(res)
-        , error = extractError(flat);
+      var error = extractError(res);
 
       // Process errors
       if (error) return cb(new Error(error));
 
       // Extract interesting stuff
-      var result = extract(flat, that.extractions);
+      var result = extract.call(that, res, that.extractions);
 
       return cb(null, result);
     }
@@ -119,46 +116,13 @@ Price.prototype.done = function (cb) {
   return this;
 };
 
-var flattenArrays = function (obj) {
-  return _.chain(obj).pairs().map(function (x) {
-    var key = x[0]
-      , value = x[1];
-
-    // Flatten array
-    if (_.isArray(value)) {
-      value = value[0];
-    }
-
-    // Recursively flatten objects
-    if (value && 'object' === typeof value) {
-      value = flattenArrays(value);
-    }
-
-    return [key, value];
-
-  }).object().value();
-};
-
-
-var firstMatch = function (obj, query) {
+var first = function (obj, query) {
   var matches = path(obj, query);
   return matches.length ? matches[0] : null;
 };
 
-var extract = function (obj, extractions) {
-  var o = {};
-
-  return _.pairs(extractions).map(function (x) {
-    var o = {}, match = firstMatch(obj, x[1]);
-    if (match) o[x[0]] = match;
-    return o;
-  }).reduce(function (memo, next) {
-    return _.extend(memo, next);
-  }, {});
-};
-
 var extractError = function (obj) {
-  return firstMatch(obj, '$..Error.Message');
+  return first(obj, '$..Error.Message[0]');
 };
 
 var endpointMap = [
@@ -174,10 +138,39 @@ var endpointMap = [
   { name: 'india', code: 'IN', endpoint: 'webservices.amazon.in' }
 ];
 
-var defaultExtractions = {
-  'asin': '$..ASIN',
-  'listPrice': '$..ListPrice.FormattedPrice',
-  'name': '$..Title',
-  'offerPrice': '$..Offer..Price.FormattedPrice',
-  'url': '$..DetailPageURL'
+var extract = function (text, extractions) {
+  var that = this;
+
+  var res = _
+    .chain(extractions)
+    .map(function (x) {
+      var key = x.name
+        , val = first(text, x.query);
+
+      // Transform value if we have a transform available
+      if (x.transform) val = x.transform.call(that, val);
+
+      return [key, val];
+    })
+    .filter(function (x) {
+      return x[1] !== null;
+    })
+    .object()
+    .value();
+
+  return _.keys(res).length ? res : null;
 };
+
+var defaultExtractions = [
+  { name: 'id', query: '$..ASIN[0]' },
+  { name: 'listPrice',
+    query: '$..ListPrice..Price[0]',
+    transform: transforms.formatPrice
+  },
+  { name: 'name', query: '$..Title[0]' },
+  { name: 'offerPrice',
+    query: '$..Offer..Price[0]',
+    transform: transforms.formatPrice
+  },
+  { name: 'url', query: '$..DetailPageURL[0]' }
+];
