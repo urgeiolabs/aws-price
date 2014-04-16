@@ -122,7 +122,7 @@ var first = function (obj, query) {
 };
 
 var extractError = function (obj) {
-  return first(obj, '$..Error.Message[0]');
+  return first(obj, '$..Error..Message[0]');
 };
 
 var endpointMap = [
