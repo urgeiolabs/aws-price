@@ -172,5 +172,10 @@ var defaultExtractions = [
     query: '$..Offer..Price[0]',
     transform: transforms.formatPrice
   },
-  { name: 'url', query: '$..DetailPageURL[0]' }
+  { name: 'lowestPrice',
+    query: '$..LowestNewPrice[0]',
+    transform: transforms.formatPrice
+  },
+  { name: 'url', query: '$..DetailPageURL[0]' },
+  { name: 'remaining', query: '$..TotalNew[0]' }
 ];
