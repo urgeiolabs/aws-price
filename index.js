@@ -61,16 +61,6 @@ Price.prototype.country = function (country) {
   return this;
 };
 
-Price.prototype.extractions = function (exts) {
-  this.extractions = exts;
-  return this;
-};
-
-Price.prototype.extract = function (rename, path) {
-  this.extractions[rename] = path;
-  return this;
-};
-
 Price.prototype.done = function (cb) {
   var that = this;
 
