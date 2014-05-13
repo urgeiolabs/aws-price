@@ -132,7 +132,7 @@ var endpointMap = [
   { name: 'spain', code: 'ES', endpoint: 'webservices.amazon.es' },
   { name: 'france', code: 'FR', endpoint: 'webservices.amazon.fr' },
   { name: 'italy', code: 'IT', endpoint: 'webservices.amazon.it' },
-  { name: 'japan', code: 'JP', endpoint: 'webservices.amazon.jp' },
+  { name: 'japan', code: 'JP', endpoint: 'webservices.amazon.co.jp' },
   { name: 'uk', code: 'GB', endpoint: 'webservices.amazon.co.uk' },
   { name: 'us', code: 'US', endpoint: 'webservices.amazon.com' },
   { name: 'india', code: 'IN', endpoint: 'webservices.amazon.in' }
