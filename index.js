@@ -62,6 +62,19 @@ Price.prototype.country = function (country) {
   return this;
 };
 
+Price.prototype.price = function (price) {
+  if (_.isString(price)) {
+    price = price.split('..');
+  } else if (!_.isArray(price)) {
+    return this;
+  }
+
+  if (price[0]) this.opts.minimumPrice = price[0] * 100;
+  if (price[1]) this.opts.maximumPrice = price[1] * 100;
+
+  return this;
+};
+
 Price.prototype.done = function (cb) {
   var that = this;
 
@@ -81,8 +94,11 @@ Price.prototype.done = function (cb) {
 
   // Populate request object
   var req = {
-    'ResponseGroup': 'Offers,ItemAttributes'
+    'ResponseGroup': 'Offers,ItemAttributes',
   };
+
+  if (this.opts.minimumPrice) req['MinimumPrice'] = this.opts.minimumPrice;
+  if (this.opts.maximumPrice) req['MaximumPrice'] = this.opts.maximumPrice;
 
   if (this.mode === 'search') {
     _.extend(req, { 'SearchIndex': 'All', 'Keywords': this.keywords });
