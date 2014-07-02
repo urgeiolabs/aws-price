@@ -57,6 +57,9 @@ Price.prototype.country = function (country) {
     return e.code === country.toUpperCase() || e.name === country;
   });
 
+  // Set country
+  this.country = country;
+
   // Set the first matching endpoint
   if (match.length > 0) this.opts.endpoint = match[0].endpoint;
   return this;
