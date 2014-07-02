@@ -17,9 +17,19 @@ var accounting = require('accounting')
  */
 module.exports.formatPrice = function (val) {
   var code = val && val.CurrencyCode && val.CurrencyCode[0]
-    , amount = val && val.Amount && val.Amount[0];
+    , amount = val && val.Amount && val.Amount[0]
+    , decimal, thousand;
 
   if (!code || !amount) return null;
 
-  return accounting.formatMoney(amount / 100, currency(code));
+  // Set separator
+  if (~['DE'].indexOf(this.country)) {
+    decimal = ',';
+    thousand = '.';
+  } else {
+    decimal = '.';
+    thousand = ',';
+  }
+
+  return accounting.formatMoney(amount / 100, currency(code), 2, thousand, decimal);
 };
