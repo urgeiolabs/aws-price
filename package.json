@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/adamvr/aws-price.git"
+    "url": "git://github.com/urgeiolabs/aws-price.git"
   },
   "author": "Adam Rudd",
   "license": "MIT",
