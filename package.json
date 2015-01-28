@@ -13,10 +13,11 @@
   "author": "Adam Rudd",
   "license": "MIT",
   "dependencies": {
-    "apac": "0.0.13",
     "JSONPath": ">=0.9.1",
-    "underscore": ">=1.6.0",
+    "accounting": "^0.3.2",
+    "apac": "0.0.13",
     "currency-symbol-map": "^1.2.0",
-    "accounting": "^0.3.2"
+    "nomnom": "^1.8.1",
+    "underscore": ">=1.6.0"
   }
 }
