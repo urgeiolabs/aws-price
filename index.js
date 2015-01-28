@@ -222,5 +222,6 @@ var defaultExtractions = [
     transform: transforms.formatPrice
   },
   { name: 'url', query: '$..DetailPageURL[0]' },
-  { name: 'remaining', query: '$..TotalNew[0]' }
+  { name: 'remaining', query: '$..TotalNew[0]' },
+  { name: 'image', query: '$..LargeImage..URL[0]' }
 ];
