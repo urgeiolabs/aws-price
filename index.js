@@ -78,6 +78,18 @@ Price.prototype.price = function (price) {
   return this;
 };
 
+Price.prototype.limit = function (limit) {
+  return this._limit = limit, this;
+};
+
+Price.prototype.page = function (page) {
+  return this._page = page, this;
+};
+
+Price.prototype.one = function (one) {
+  return this._one = 'undefined' === typeof one ? true : !!one, this;
+};
+
 Price.prototype.done = function (cb) {
   var that = this;
 
