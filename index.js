@@ -139,6 +139,15 @@ Price.prototype.done = function (cb) {
         return extract.call(that, x, that.extractions)
       });
 
+      // Apply limits
+      if (that._limit) {
+        result = _.first(result, limit);
+      }
+
+      if (that._one) {
+        result = _.first(result);
+      }
+
       return cb(null, result);
     }
   }
