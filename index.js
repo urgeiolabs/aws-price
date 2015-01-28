@@ -103,13 +103,12 @@ Price.prototype.done = function (cb) {
   // Make sure we only execute the callback once
   cb = _.once(cb);
 
-
   // Convert op name
   var op = this.mode === 'search' ? 'ItemSearch' : 'ItemLookup';
 
   // Populate request object
   var req = {
-    'ResponseGroup': 'Offers,ItemAttributes',
+    'ResponseGroup': 'Offers,ItemAttributes,Images'
   };
 
   if (this.opts.minimumPrice) req['MinimumPrice'] = this.opts.minimumPrice;
