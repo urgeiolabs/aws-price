@@ -35,6 +35,14 @@ var opts = nomnom
     required: true,
     help: 'Keywords to search'
   })
+  .option('one', {
+    abbr: '1',
+    help: 'Only return one result',
+    flag: true
+  })
+  .option('page', {
+    help: 'Choose page'
+  })
   .parse();
 
 amazon({keywords: opts.keywords})
@@ -43,6 +51,8 @@ amazon({keywords: opts.keywords})
   .associate(opts.associate || 'node-amazon-lookup')
   .country(opts.country)
   .price(opts.price)
+  .page(opts.page)
+  .one(opts.one)
   .done(function (err, result) {
     if (err) throw err;
     console.log(result);
