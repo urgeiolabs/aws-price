@@ -113,6 +113,7 @@ Price.prototype.done = function (cb) {
 
   if (this.opts.minimumPrice) req['MinimumPrice'] = this.opts.minimumPrice;
   if (this.opts.maximumPrice) req['MaximumPrice'] = this.opts.maximumPrice;
+  if (this.opts._page) req['ItemPage'] = this.opts._page;
 
   if (this.mode === 'search') {
     _.extend(req, { 'SearchIndex': 'All', 'Keywords': this.keywords });
