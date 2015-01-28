@@ -131,8 +131,13 @@ Price.prototype.done = function (cb) {
       // Process errors
       if (error) return cb(new Error(error));
 
+      // Find the item root
+      var root = first(res, '$..Item');
+
       // Extract interesting stuff
-      var result = extract.call(that, res, that.extractions);
+      var result = root.map(function (x) {
+        return extract.call(that, x, that.extractions)
+      });
 
       return cb(null, result);
     }
