@@ -40,6 +40,10 @@ var opts = nomnom
     help: 'Only return one result',
     flag: true
   })
+  .option('limit', {
+    abbr: 'l',
+    help: 'Limit number of results'
+  })
   .option('page', {
     help: 'Choose page'
   })
@@ -53,6 +57,7 @@ amazon({keywords: opts.keywords})
   .price(opts.price)
   .page(opts.page)
   .one(opts.one)
+  .limit(opts.limit)
   .done(function (err, result) {
     if (err) throw err;
     console.log(result);
