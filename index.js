@@ -87,7 +87,7 @@ Price.prototype.page = function (page) {
 };
 
 Price.prototype.one = function (one) {
-  return this._one = 'undefined' === typeof one ? true : !!one, this;
+  return this._one = !arguments.length ? true : !!one, this;
 };
 
 Price.prototype.done = function (cb) {
@@ -141,7 +141,7 @@ Price.prototype.done = function (cb) {
 
       // Apply limits
       if (that._limit) {
-        result = _.first(result, limit);
+        result = _.first(result, that._limit);
       }
 
       if (that._one) {
