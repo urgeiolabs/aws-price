@@ -135,9 +135,11 @@ Price.prototype.done = function (cb) {
       var root = first(res, '$..Item');
 
       // Extract interesting stuff
-      var result = root.map(function (x) {
-        return extract.call(that, x, that.extractions)
-      });
+      var result = root
+            ? root.map(function (x) {
+                return extract.call(that, x, that.extractions)
+              })
+            : [];
 
       // Apply limits
       if (that._limit) {
