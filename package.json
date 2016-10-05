@@ -1,6 +1,6 @@
 {
   "name": "aws-price",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "Amazon product API price lookup simplified",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "author": "Adam Rudd",
   "license": "MIT",
   "dependencies": {
-    "JSONPath": ">=0.9.1",
+    "JSONPath": "^0.9.1",
     "accounting": "^0.3.2",
     "apac": "0.0.13",
     "currency-symbol-map": "^1.2.0",
