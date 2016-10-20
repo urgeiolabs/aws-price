@@ -2,7 +2,7 @@
  * Module dependencies
  */
 var apac = require('apac')
-  , path = require('JSONPath').eval
+  , jp = require('jsonpath')
   , transforms = require('./transforms')
   , _ = require('underscore');
 
@@ -164,7 +164,7 @@ Price.prototype.done = function (cb) {
 };
 
 var first = function (obj, query) {
-  var matches = path(obj, query);
+  var matches = jp.query(obj, query);
   return matches.length ? matches[0] : null;
 };
 
