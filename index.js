@@ -164,6 +164,7 @@ Price.prototype.done = function (cb) {
 };
 
 var first = function (obj, query) {
+  if (typeof obj !== 'object') return null
   var matches = jp.query(obj, query);
   return matches.length ? matches[0] : null;
 };
