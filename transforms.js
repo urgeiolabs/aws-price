@@ -1,9 +1,9 @@
 /**
  * Module dependencies
  */
-var accounting = require('accounting')
-  , util = require('util')
-  , currency = require('currency-symbol-map');
+const accounting = require('accounting')
+const util = require('util')
+const currency = require('currency-symbol-map')
 
 /**
  * formatPrice - format currency code and price nicely
@@ -16,20 +16,22 @@ var accounting = require('accounting')
  *   }
  */
 module.exports.formatPrice = function (val) {
-  var code = val && val.CurrencyCode && val.CurrencyCode[0]
-    , amount = val && val.Amount && val.Amount[0]
-    , decimal, thousand;
+  const code = val && val.CurrencyCode
+  const amount = val && val.Amount
+  let decimal
+  let thousand
 
-  if (!code || !amount) return null;
+  if (!code || !amount) return null
 
   // Set separator
   if (~['DE'].indexOf(this.country)) {
-    decimal = ',';
-    thousand = '.';
+    decimal = ','
+    thousand = '.'
   } else {
-    decimal = '.';
-    thousand = ',';
+    decimal = '.'
+    thousand = ','
   }
 
-  return accounting.formatMoney(amount / 100, currency(code), 2, thousand, decimal);
-};
+  return accounting.formatMoney(amount / 100,
+                                currency(code), 2, thousand, decimal)
+}

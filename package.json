@@ -1,6 +1,6 @@
 {
   "name": "aws-price",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "Amazon product API price lookup simplified",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "accounting": "^0.3.2",
-    "apac": "0.0.13",
+    "apac": "3.0.2",
     "currency-symbol-map": "^1.2.0",
     "jsonpath": "^0.2.7",
     "nomnom": "^1.8.1",

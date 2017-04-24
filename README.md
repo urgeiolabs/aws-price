@@ -6,9 +6,9 @@ This module is a simple chainable wrapper around [node-apac](http://github.com/d
 
 ## Dependencies
 
-* [node-apac](http://github.com/dmcquay/node-apac)
-* [JSONPath](http://github.com/s3u/JSONPath)
-* [underscore](http://underscorejs.org)
+* [node-apac](https://github.com/dmcquay/node-apac)
+* [jsonpath](https://github.com/dchester/jsonpath)
+* [underscore](https://underscorejs.org)
 
 ## Example
 
