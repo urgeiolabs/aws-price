@@ -87,6 +87,16 @@ Price.prototype.page = function (page) {
   return this
 }
 
+Price.prototype.browseNode = function (browseNode) {
+  if (browseNode) this.opts.browseNode = browseNode
+  return this
+}
+
+Price.prototype.searchIndex = function (searchIndex) {
+  if (searchIndex) this.opts.searchIndex = searchIndex
+  return this
+}
+
 Price.prototype.one = function (one) {
   return this._one = !arguments.length ? true : !!one, this
 }
@@ -112,12 +122,15 @@ Price.prototype.done = function (cb) {
     'ResponseGroup': 'Offers,ItemAttributes,Images'
   }
 
+  let searchIndex = this.opts.searchIndex || 'All'
+
   if (this.opts.minimumPrice) req['MinimumPrice'] = this.opts.minimumPrice
   if (this.opts.maximumPrice) req['MaximumPrice'] = this.opts.maximumPrice
   if (this.opts.page) req['ItemPage'] = this.opts.page
+  if (this.opts.browseNode) req['BrowseNode'] = this.opts.browseNode
 
   if (this.mode === 'search') {
-    _.extend(req, { 'SearchIndex': 'All', 'Keywords': this.keywords })
+    _.extend(req, { 'SearchIndex': searchIndex, 'Keywords': this.keywords })
   } else if (this.mode === 'lookup') {
     _.extend(req, { 'ItemId': this.itemId })
   }
