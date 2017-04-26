@@ -222,6 +222,10 @@ const defaultExtractions = [
     query: 'OfferSummary..LowestNewPrice',
     transform: transforms.formatPrice
   },
+  { name: 'lowestPriceSortable',
+    query: 'OfferSummary..LowestNewPrice',
+    transform: transforms.formatToNumber
+  },
   { name: 'url', query: 'DetailPageURL' },
   { name: 'remaining', query: 'OfferSummary..TotalNew' },
   { name: 'image', query: 'LargeImage..URL' }

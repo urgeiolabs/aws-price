@@ -35,3 +35,9 @@ module.exports.formatPrice = function (val) {
   return accounting.formatMoney(amount / 100,
                                 currency(code), 2, thousand, decimal)
 }
+
+module.exports.formatToNumber = function (val) {
+  const amount = val && val.Amount
+  if (!amount) return null
+  return parseInt(amount)
+}
