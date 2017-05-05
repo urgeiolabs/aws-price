@@ -151,7 +151,8 @@ Price.prototype.done = function (cb) {
     if (error) return cb(new Error(error))
 
     // Find the item root
-    const root = first(res, '$..Item')
+    let root = first(res, '$..Item')
+    if (root && !Array.isArray(root)) root = [root]
 
     // Extract interesting stuff
     const result = root
