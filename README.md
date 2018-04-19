@@ -20,3 +20,12 @@ This module is a simple chainable wrapper around [node-apac](http://github.com/d
       .associate('<amazon associate id>')
       .country('us')
       .done(function (err, res) {});
+
+It is also possible to look for products via keywords or EAN
+
+    price({ keywords: 'Teddy Bear' })
+    ...
+
+    // Up to 10 EANs
+    price({ ean: '0123456789123,1234567890123' })
+    ...

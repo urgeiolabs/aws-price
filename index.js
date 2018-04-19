@@ -15,6 +15,7 @@ const Price = function Price (itemId, opts) {
 
   if ('object' === typeof itemId) {
     if (itemId.id) this.itemId = itemId.id
+    if (itemId.ean) this.ean = itemId.ean
     if (itemId.keywords) this.keywords = itemId.keywords, this.mode = 'search'
   } else {
     this.itemId = itemId
@@ -132,7 +133,13 @@ Price.prototype.done = function (cb) {
   if (this.mode === 'search') {
     _.extend(req, { 'SearchIndex': searchIndex, 'Keywords': this.keywords })
   } else if (this.mode === 'lookup') {
-    _.extend(req, { 'ItemId': this.itemId })
+    if (this.ean) {
+      _.extend(req, {
+        'ItemId': this.ean, 'IdType': 'EAN', 'SearchIndex': searchIndex
+      })
+    } else {
+      _.extend(req, { 'ItemId': this.itemId })
+    }
   }
 
   // Run the request
