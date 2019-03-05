@@ -50,6 +50,11 @@ Price.prototype.associate = function (associateId) {
   return this
 }
 
+Price.prototype.loadImages = function (loadImages) {
+  this.opts.loadImages = loadImages
+  return this
+}
+
 Price.prototype.country = function (country) {
   if (!country) return this
 
@@ -161,12 +166,41 @@ Price.prototype.done = function (cb) {
     let root = first(res, '$..Item')
     if (root && !Array.isArray(root)) root = [root]
 
+    if (that.opts.loadImages) {
+      that.extractions.push({ name: 'images', query: 'ImageSets..ImageSet' })
+    }
+
     // Extract interesting stuff
     const result = root
           ? root.map(function (x) {
               return extract.call(that, x, that.extractions)
             })
           : []
+
+    // format images
+    if (that.opts.loadImages) {
+      result.forEach(r => {
+        // Remove images key if we didn't get any
+        if (!r.images) {
+          delete r.images
+          return
+        }
+
+        let rawImages = r.images
+        if (!Array.isArray(rawImages)) rawImages = [rawImages]
+        r.images = rawImages.reduce((images, image) => {
+          const { TinyImage, LargeImage, HiResImage } = image
+          if (!TinyImage || !LargeImage || !HiResImage) return images
+          const img = {
+            small: TinyImage.URL,
+            big: LargeImage.URL,
+            hiRes: HiResImage.URL,
+          }
+          images.push(img)
+          return images
+        }, [])
+      })
+    }
 
     // Apply limits
     if (that._limit) {
