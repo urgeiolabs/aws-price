@@ -166,10 +166,6 @@ Price.prototype.done = function (cb) {
     let root = first(res, '$..Item')
     if (root && !Array.isArray(root)) root = [root]
 
-    if (that.opts.loadImages) {
-      that.extractions.push({ name: 'images', query: 'ImageSets..ImageSet' })
-    }
-
     // Extract interesting stuff
     const result = root
           ? root.map(function (x) {
@@ -182,7 +178,7 @@ Price.prototype.done = function (cb) {
       result.forEach(r => {
         // Remove images key if we didn't get any
         if (!r.images) {
-          delete r.images
+          r.images = []
           return
         }
 
@@ -244,8 +240,12 @@ const endpointMap = [
 ]
 
 const extract = function (text, extractions) {
+  const exts = this.opts.loadImages
+    ? [...extractions, { name: 'images', query: 'ImageSets..ImageSet' }]
+    : extractions
+
   const res = _
-    .chain(extractions)
+    .chain(exts)
     .map(x => {
       const key = x.name
       let val = first(text, x.query, x.name)
