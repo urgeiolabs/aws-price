@@ -135,6 +135,8 @@ Price.prototype.done = function (cb) {
   if (this.opts.page) req['ItemPage'] = this.opts.page
   if (this.opts.browseNode) req['BrowseNode'] = this.opts.browseNode
 
+  req['Condition'] = 'All'
+
   if (this.mode === 'search') {
     _.extend(req, { 'SearchIndex': searchIndex, 'Keywords': this.keywords })
   } else if (this.mode === 'lookup') {
@@ -264,6 +266,7 @@ const extract = function (text, extractions) {
 
 const defaultExtractions = [
   { name: 'id', query: 'ASIN' },
+  { name: 'offers', query: 'Offers' },
   { name: 'listPrice',
     query: 'ItemAttributes..ListPrice',
     transform: transforms.formatPrice
