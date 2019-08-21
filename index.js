@@ -103,6 +103,11 @@ Price.prototype.searchIndex = function (searchIndex) {
   return this
 }
 
+Price.prototype.loadOffers = function () {
+  this.opts.loadOffers = true
+  return this
+}
+
 Price.prototype.one = function (one) {
   return this._one = !arguments.length ? true : !!one, this
 }
@@ -134,6 +139,7 @@ Price.prototype.done = function (cb) {
   if (this.opts.maximumPrice) req['MaximumPrice'] = this.opts.maximumPrice
   if (this.opts.page) req['ItemPage'] = this.opts.page
   if (this.opts.browseNode) req['BrowseNode'] = this.opts.browseNode
+  if (this.opts.loadOffers) req['Condition'] = 'All'
 
   if (this.mode === 'search') {
     _.extend(req, { 'SearchIndex': searchIndex, 'Keywords': this.keywords })
@@ -195,6 +201,12 @@ Price.prototype.done = function (cb) {
           images.push(img)
           return images
         }, [])
+      })
+    }
+
+    if (!that.opts.loadOffers) {
+      result.forEach(r => {
+        delete r.offers
       })
     }
 
@@ -264,6 +276,7 @@ const extract = function (text, extractions) {
 
 const defaultExtractions = [
   { name: 'id', query: 'ASIN' },
+  { name: 'offers', query: 'Offers' },
   { name: 'listPrice',
     query: 'ItemAttributes..ListPrice',
     transform: transforms.formatPrice
