@@ -29,3 +29,11 @@ It is also possible to look for products via keywords or EAN
     // Up to 10 EANs
     price({ ean: '0123456789123,1234567890123' })
     ...
+
+Load extra offers which could show used or refurbished objects.
+This adds an offers field to the response.
+
+    price('<asin>')
+      ...
+      .loadOffers()
+      ...
